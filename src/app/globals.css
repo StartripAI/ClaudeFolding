@@ -1,26 +1,209 @@
+@import url("https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css");
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ── Tailwind 4 Theme ── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #0d0d0d;
+  --color-foreground: #f2f4f8;
+  --color-muted: #a6acb7;
+  --color-border: #2f3238;
+  --color-surface: #121316;
+  --color-surface-2: #1a1c20;
+  --color-surface-3: #202228;
+
+  --color-accent: #d4a853;
+  --color-accent-blue: #007ec6;
+  --color-accent-orange: #ff6600;
+  --color-accent-green: #6ba368;
+  --color-accent-purple: #9b7cb8;
+  --color-accent-copper: #c17b5e;
+  --color-accent-cyan: #9bbec7;
+
+  --color-signal-green: #89b89e;
+  --color-signal-amber: #bfa17a;
+  --color-signal-red: #be8680;
+
+  --font-sans: var(--font-noto-sans-sc), "PingFang SC", "Noto Sans SC", sans-serif;
+  --font-display: "LXGW WenKai", var(--font-space-grotesk), sans-serif;
+  --font-heading: var(--font-space-grotesk), "LXGW WenKai", sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "SFMono-Regular", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --rail-height: 68px;
+}
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #0d0d0d;
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Subtle grid texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1));
+  opacity: 0.15;
+  z-index: -2;
+}
+
+/* Top vignette */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(212, 168, 83, 0.04), transparent 50%),
+    radial-gradient(ellipse at 80% 0%, rgba(0, 126, 198, 0.03), transparent 50%),
+    linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.2));
+  z-index: -1;
+}
+
+/* ── Interaction defaults ── */
+a,
+button {
+  transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+  transition-duration: 180ms;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgba(212, 168, 83, 0.5);
+  outline-offset: 2px;
+}
+
+code, input, textarea, kbd, pre {
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background: rgba(212, 168, 83, 0.25);
+  color: #fff;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(212, 168, 83, 0.15); }
+::-webkit-scrollbar-thumb:hover { background: rgba(212, 168, 83, 0.3); }
+
+/* ── Utility classes ── */
+.panel-surface {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0)), rgba(26, 28, 32, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+
+.panel-strong {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)), rgba(18, 19, 22, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.26);
+}
+
+.micro-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+/* ── Chinese-specific animations ── */
+
+/* 墨迹浮现: 标题逐字从左到右揭示 */
+@keyframes ink-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0% 0 0); }
+}
+
+/* 呼吸灯: 节点/卡片脉冲 */
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 8px rgba(212, 168, 83, 0.15); }
+  50% { box-shadow: 0 0 24px rgba(212, 168, 83, 0.35); }
+}
+
+/* 粒子漂浮 */
+@keyframes particle-drift {
+  0% { transform: translateY(0) translateX(0); opacity: 0.5; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
+}
+
+/* 光标闪烁 */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 卷轴展开 */
+@keyframes scroll-unroll {
+  from { clip-path: inset(0 0 100% 0); max-height: 0; }
+  to { clip-path: inset(0 0 0% 0); max-height: 600px; }
+}
+
+/* 印章盖章 */
+@keyframes seal-press {
+  0% { transform: scale(1) rotate(0deg); }
+  30% { transform: scale(0.9) rotate(-2deg); }
+  60% { transform: scale(1.02) rotate(0.5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* 导航脉冲 */
+@keyframes rail-pulse {
+  0%, 100% { opacity: 0.45; box-shadow: 0 0 0 rgba(212, 168, 83, 0); }
+  50% { opacity: 1; box-shadow: 0 0 16px rgba(212, 168, 83, 0.2); }
+}
+
+/* SVG 路径描绘 */
+@keyframes stroke-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* 缓慢浮动 */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
