@@ -11,6 +11,15 @@
 </p>
 
 <p align="center">
+  <img alt="claude-code" src="https://img.shields.io/badge/claude--code-111111?style=flat-square&labelColor=111111&color=27272a" />
+  <img alt="clean-room" src="https://img.shields.io/badge/clean--room-111111?style=flat-square&labelColor=111111&color=27272a" />
+  <img alt="source-code-analysis" src="https://img.shields.io/badge/source--code--analysis-111111?style=flat-square&labelColor=111111&color=27272a" />
+  <img alt="bilingual" src="https://img.shields.io/badge/bilingual-111111?style=flat-square&labelColor=111111&color=27272a" />
+  <img alt="nextjs" src="https://img.shields.io/badge/nextjs-111111?style=flat-square&labelColor=111111&color=27272a" />
+  <img alt="developer-tools" src="https://img.shields.io/badge/developer--tools-111111?style=flat-square&labelColor=111111&color=27272a" />
+</p>
+
+<p align="center">
   <img src="./docs/jade-seal.png" alt="Claude Code Folding cover" width="100%" />
 </p>
 
