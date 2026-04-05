@@ -1,7 +1,8 @@
 # Claude Code Folding
 
-> Claude Code 中文解剖站。  
-> 执行链、架构、工具、命令、隐藏能力，一页读懂。
+> Claude Code Folding 已上线。  
+> 52 万行源码，折成一页中文解剖图。  
+> 执行链、架构、工具、命令、隐藏能力，一次看清。
 
 <p align="center">
   <a href="https://copilotinvoice.com"><strong>Visit Site</strong></a>
@@ -10,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img src="./docs/repo-cover.png" alt="Claude Code Folding cover" width="100%" />
+  <img src="./docs/jade-seal.png" alt="Claude Code Folding cover" width="100%" />
 </p>
 
 ## 中文介绍
